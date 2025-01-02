@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PortfolioHerryWijaya.Data;
 using PortfolioHerryWijaya.Models;
 using System.Diagnostics;
 
@@ -6,27 +7,19 @@ namespace PortfolioHerryWijaya.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly PortfolioDbContext portfolioDbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(PortfolioDbContext portfolioDbContext)
         {
-            _logger = logger;
+            this.portfolioDbContext = portfolioDbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var portfolios=portfolioDbContext.Portfolios.ToList();
+            return View(portfolios);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+      
     }
 }
