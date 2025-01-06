@@ -27,6 +27,15 @@ namespace PortfolioHerryWijaya.Controllers
             }
             return View(model);
         }
-        
+
+
+        public IActionResult Portfolio2()
+        {
+            return RedirectToAction("Index","Dapper");
+
+        }
+
+
+
     }
 }

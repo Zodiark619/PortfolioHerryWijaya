@@ -21,6 +21,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.MapControllerRoute(
+    name: "Admin",
+    pattern: "{area:exists}/{controller=AdminPortfolios}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",
