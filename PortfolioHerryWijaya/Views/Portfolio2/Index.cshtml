@@ -14,48 +14,69 @@
 </div>
 
  
- <form method="get"
-      asp-controller="AdminTags" ,
-      asp-action="List">
-    <div class="container mt-5">
+@*  <form method="get"
+      
+      asp-action="Index">
+     <div class="container mt-5"> 
         <div class="row">
             <div class="col col-md-3 d-flex">
                 <input type="text" class="form-control"
                        name="searchQuery" value="@ViewBag.SearchQuery" />
-                <button type="submit" class="btn btn-warning ms-3">Search</button>
+                 <button type="submit" class="btn btn-warning ms-3">Search</button> 
             </div>
         </div>
     </div>
-</form> 
+</form>  *@
+<section>
+
+</section>
+<form method="get"
+      asp-action="Index">
+    <div class="row gtr-uniform">
+       
+        
+        
+        <div class="col-6">
+                <input type="text" 
+                       name="searchQuery" value="@ViewBag.SearchQuery" />
+           
+        </div>
+        <div class="col-12">
+            <ul class="actions">
+                <li>
+                    <button type="submit" class="primary">Search</button>
+
+                </li>
+            </ul>
+
+        </div>
 
 
+    </div>
+</form>
 <div class="container mt-3">
     @if (Model != null && Model.Any())
     {
         <table class="table">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Condition</th>
-                    <th>Source</th>
-                    @* <th>
+                    <th>
                         Name
                         <span>
                             <span>
                                 <a class="btn btn-light"
-                                   asp-controller="AdminTags"
-                                   asp-action="List"
+                                   
+                                   asp-action="Index"
                                    asp-route-sortBy="Name"
                                    asp-route-sortDirection="Asc"
-                                   asp-route-searchQuery="@ViewBag.SearchQuery">
+                                   asp-route-searchQuery="@ViewBag.SearchQuery"
+                                  >
                                     <i class="bi bi-arrow-up"></i>
                                 </a>
                             </span>
                             <span>
                                 <a class="btn btn-light"
-                                   asp-controller="AdminTags"
-                                   asp-action="List"
+                                   asp-action="Index"
                                    asp-route-sortBy="Name"
                                    asp-route-sortDirection="Desc"
                                    asp-route-searchQuery="@ViewBag.SearchQuery">
@@ -63,16 +84,16 @@
                                 </a>
                             </span>
                         </span>
-
                     </th>
+                    <th>Type</th>
+                    <th>Condition</th>
                     <th>
-                        Display Name
+                        Source
                         <span>
                             <span>
                                 <a class="btn btn-light"
-                                   asp-controller="AdminTags"
-                                   asp-action="List"
-                                   asp-route-sortBy="DisplayName"
+                                   asp-action="Index"
+                                   asp-route-sortBy="Source"
                                    asp-route-sortDirection="Asc"
                                    asp-route-searchQuery="@ViewBag.SearchQuery">
                                     <i class="bi bi-arrow-up"></i>
@@ -80,9 +101,8 @@
                             </span>
                             <span>
                                 <a class="btn btn-light"
-                                   asp-controller="AdminTags"
-                                   asp-action="List"
-                                   asp-route-sortBy="DisplayName"
+                                   asp-action="Index"
+                                   asp-route-sortBy="Source"
                                    asp-route-sortDirection="Desc"
                                    asp-route-searchQuery="@ViewBag.SearchQuery">
                                     <i class="bi bi-arrow-down"></i>
@@ -90,7 +110,7 @@
                             </span>
                         </span>
                     </th>
-                <th> </th>*@
+                
                 </tr>
             </thead>
             <tbody>
@@ -101,9 +121,7 @@
                         <td>@weapon.Type</td>
                         <td>@weapon.Condition</td>
                         <td>@weapon.Source</td>
-                       @*  <td>@tag.Id</td>
-                        <td>@tag.Name</td>
-                        <td>@tag.DisplayName</td>
+                       @*  
                         <td>
                             <a asp-area="" asp-controller="AdminTags"
                                asp-action="Edit"
@@ -114,50 +132,46 @@
             </tbody>
         </table>
 
-       @*  <nav aria-label="Page navigation example">
+
+        <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link"
-                       asp-controller="AdminTags"
-                       asp-action="List"
+                <li class="page-item"><a class="page-link"
+                       asp-action="Index"
                        asp-route-pageNumber="@prevPage"
                        asp-route-pageSize="@ViewBag.PageSize"
                        asp-route-sortBy="@ViewBag.SortBy"
-                       asp-route-sortDirection="@ViewBag.SortDirection">
-                        Previous
-                    </a>
+                       asp-route-sortDirection="@ViewBag.SortDirection"
+                       asp-route-searchQuery="@ViewBag.SearchQuery">Previous</a>
                 </li>
-
-                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                @for(int i = 1; i <= ViewBag.TotalPages; i++)
                 {
-                    <li class="page-item">
+                    <li class="page-item @(i==ViewBag.PageNumber? "active" :"")">
                         <a class="page-link"
-                           asp-controller="AdminTags"
-                           asp-action="List"
-                           asp-route-pageNumber="@i"
-                           asp-route-pageSize="@ViewBag.PageSize"
+                          
+                            
+                               
+                           
+                        asp-action="Index"
+                        asp-route-pageNumber="@i"
+                        asp-route-pageSize="@ViewBag.PageSize"
                            asp-route-sortBy="@ViewBag.SortBy"
-                           asp-route-sortDirection="@ViewBag.SortDirection">
-                            @i
-                        </a>
-                    </li>
+                           asp-route-sortDirection="@ViewBag.SortDirection"
+                           asp-route-searchQuery="@ViewBag.SearchQuery">@i</a>
+                        </li>
+
                 }
 
-
-                <li class="page-item">
-                    <a class="page-link"
-                       asp-controller="AdminTags"
-                       asp-action="List"
+                
+                <li class="page-item"><a class="page-link"
+                       asp-action="Index"
                        asp-route-pageNumber="@nextPage"
                        asp-route-pageSize="@ViewBag.PageSize"
                        asp-route-sortBy="@ViewBag.SortBy"
-                       asp-route-sortDirection="@ViewBag.SortDirection">
-                        Next
-                    </a>
+                       asp-route-sortDirection="@ViewBag.SortDirection"
+                       asp-route-searchQuery="@ViewBag.SearchQuery">Next</a>
                 </li>
             </ul>
-        </nav> *@
-
+        </nav>
     }
     else
     {

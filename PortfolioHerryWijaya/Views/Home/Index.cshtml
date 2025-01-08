@@ -20,7 +20,7 @@
             <span class="image">
                 <img src="/phantom/images/@item.ImageUrl" alt="" />
             </span>
-            <a asp-action="@item.Link" asp-controller="Portfolios">
+            <a asp-action="Index" asp-controller="@item.Link">
                 <h2>@item.Title</h2>
                 <div class="content">
                     <p>@item.Description</p>
