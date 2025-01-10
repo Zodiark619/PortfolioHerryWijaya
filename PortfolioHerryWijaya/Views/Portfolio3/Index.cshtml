@@ -1,0 +1,28 @@
+﻿@using PortfolioHerryWijaya.Models.Domain.Portfolio3
+
+@model List<Gacha>
+
+<section>
+    <h1>First Descendant Gacha Shop</h1>
+    <div class="box alt">
+        <div class="row gtr-uniform">
+
+            @foreach(var gacha in Model)
+            {
+                <div class="col-4">
+                    <div class="card " style="width: 18rem;" >
+                        <img src="/phantom/project3/@gacha.ImageUrl" class="card-img-top" height="250px" width="250px">
+                        <div class="card-body" >
+                            <h5 class="card-title">@gacha.Name</h5>
+                            <p class="card-text " >@gacha.Description</p>
+                            <a href="#" class="btn btn-primary ">Details</a>
+                        </div>
+                    </div>
+                </div>
+            }
+           
+          
+          
+        </div>
+    </div>
+</section>

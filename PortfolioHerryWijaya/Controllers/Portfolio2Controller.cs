@@ -1,35 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PortfolioHerryWijaya.Data;
+using PortfolioHerryWijaya.Repositories;
 using System.Linq;
 
 namespace PortfolioHerryWijaya.Controllers
 {
 	public class Portfolio2Controller : Controller
 	{
-        private readonly PortfolioDbContext portfolioDbContext;
+        private readonly IPortfolio2Repository portfolio2Repository;
 
-        public Portfolio2Controller(PortfolioDbContext portfolioDbContext)
+        public Portfolio2Controller(IPortfolio2Repository portfolio2Repository)
         {
-            this.portfolioDbContext = portfolioDbContext;
+            this.portfolio2Repository = portfolio2Repository;
         }
-        public IActionResult Index(string? searchQuery,string? sortDirection,string? sortBy,int pageSize, int pageNumber = 1)
+        public async Task<IActionResult> Index(string? searchQuery,string? sortDirection,string? sortBy,int pageSize=3, int pageNumber = 1)
 		{
-          
-            var query = portfolioDbContext.DaysGoneWeapons.AsQueryable();
-            if (!string.IsNullOrWhiteSpace(searchQuery))
-            {
-                query = query.Where(x => x.Name.Contains(searchQuery)
-                || x.Source.Contains(searchQuery)
-                || x.Type.Contains(searchQuery));
-               // || x.Condition==int.TryParse (searchQuery,out int meong));
+         
+            var totalRecords=await portfolio2Repository.GetWeaponsCountAsync(searchQuery);
 
-            }
-
-
-            var totalRecords = query.Count();
+          //  var totalRecords = await portfolio2Repository.GetWeaponsCountAsync();
             pageSize = 3;
             var totalPages = Math.Ceiling((decimal)totalRecords / pageSize);
-
+           
             if (pageNumber < 1)
             {
                 pageNumber++;
@@ -47,26 +39,13 @@ namespace PortfolioHerryWijaya.Controllers
             ViewBag.PageNumber = pageNumber;
 
 
-            if (!string.IsNullOrWhiteSpace(sortBy))
-            {
-                var isDesc = string.Equals(sortDirection, "Desc", StringComparison.OrdinalIgnoreCase);
-
-                if (string.Equals(sortBy, "Name", StringComparison.OrdinalIgnoreCase))
-                {
-                    query = isDesc ? query.OrderByDescending(x => x.Name) : query.OrderBy(x => x.Name);
-
-                }
-                if (string.Equals(sortBy, "Source", StringComparison.OrdinalIgnoreCase))
-                {
-                    query = isDesc ? query.OrderByDescending(x => x.Source) : query.OrderBy(x => x.Source);
-
-                }
-
-            }
-            //
-            var skipResults = (pageNumber - 1) * pageSize;
-            query = query.Skip(skipResults).Take(pageSize);
-            var weapons=query.ToList();
+            
+            var weapons=await portfolio2Repository.GetWeaponsAsync(searchQuery,
+                sortDirection,
+                sortBy,
+                pageSize,
+                pageNumber
+                );
 			return View(weapons);
 		}
 	}

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortfolioHerryWijaya.Data;
 
@@ -10,9 +11,11 @@ using PortfolioHerryWijaya.Data;
 namespace PortfolioHerryWijaya.Migrations
 {
     [DbContext(typeof(PortfolioDbContext))]
-    partial class PortfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250110042013_project3new")]
+    partial class project3new
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,10 +155,6 @@ namespace PortfolioHerryWijaya.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("GachaItemPercentages")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -180,7 +179,6 @@ namespace PortfolioHerryWijaya.Migrations
                         new
                         {
                             Id = 1,
-                            Description = "10% chance to get Ultimate Freyna Surprise Box (Contains unique cosmetics, taunts, skins, and animations for Ultimate Freyna)",
                             GachaItemPercentages = "[30,30,10,15,15]",
                             GachaItems = "[\"1 Million Gold\",\"1 Million Kuiper\",\"Ultimate Freyna Surprise Box\",\"Crystallization Catalyst\",\"Energy Activator\"]",
                             ImageUrl = "ultimatefreyna.png",
@@ -189,7 +187,6 @@ namespace PortfolioHerryWijaya.Migrations
                         new
                         {
                             Id = 2,
-                            Description = "20% chance to get Ines Surprise Box (Contains Ines fragments and 1% chance of obtaining Ines's unique skin)",
                             GachaItemPercentages = "[20,20,20,20,20]",
                             GachaItems = "[\"Ultimate Weapon Surprise Box\",\"Ultimate Reactor Surprise Box\",\"Ines Surprise Box\",\"Crystallization Catalyst\",\"Energy Activator\"]",
                             ImageUrl = "ines.png",

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PortfolioHerryWijaya.Data;
+using PortfolioHerryWijaya.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,10 @@ builder.Services.AddDbContext<PortfolioDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+
+
+builder.Services.AddScoped<IPortfolio2Repository, Portfolio2Repository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
