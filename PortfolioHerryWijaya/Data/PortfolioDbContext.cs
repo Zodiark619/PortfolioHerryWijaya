@@ -164,7 +164,7 @@ namespace PortfolioHerryWijaya.Data
                 new Gacha
                 {
                     Id = 2,
-                    Name = "Ultimate Ines Pick Up Gacha",
+                    Name = "(Beginner Pack) Ines Pick Up Gacha",
                     GachaItems = new string[]
                     {
 

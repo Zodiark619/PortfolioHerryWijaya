@@ -3,26 +3,79 @@
 @model List<Gacha>
 
 <section>
+    <section>
+    @if (ViewBag.Notification != null)
+    {
+            <h2>@ViewBag.Notification</h2>
+            
+       
+    }
+    <a disabled class="button icon solid fa-upload">@ViewBag.Money</a>
+    </section>
     <h1>First Descendant Gacha Shop</h1>
     <div class="box alt">
         <div class="row gtr-uniform">
 
-            @foreach(var gacha in Model)
+
+            
+            @foreach (var gacha in Model)
             {
-                <div class="col-4">
-                    <div class="card " style="width: 18rem;" >
+                <div class="col-4"  >
+                    <div class="card " style="width: 18rem;">
                         <img src="/phantom/project3/@gacha.ImageUrl" class="card-img-top" height="250px" width="250px">
-                        <div class="card-body" >
+                        <div class="card-body">
                             <h5 class="card-title">@gacha.Name</h5>
-                            <p class="card-text " >@gacha.Description</p>
-                            <a href="#" class="btn btn-primary ">Details</a>
+                            <p class="card-text ">@gacha.Description</p>
+                             @* <a asp-action="Details" asp-route-id="@gacha.Id" class="btn btn-primary ">Details</a>  *@
+                            @* <button href="#" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#gachaModal">Details</button> *@
+                            @* <button class="btn btn-default" type="button" value="Details" data-bs-toggle="modal" data-bs-target="#gachaModal" onClick="showMyModalSetTitle(@gacha.Name, @gacha.Description)"></button> *@
+                          <form method="post">
+                            <button type="submit" asp-action="Index" asp-route-id="@gacha.Id" class="button large">Buy</button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
+
+                
+                
             }
-           
-          
-          
+
+
+
         </div>
     </div>
 </section>
+@* 
+<div class="modal fade " id="gachaModal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalTitle"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="myModalBody">
+                
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function showMyModalSetTitle(myTitle, myBodyHtml) {
+
+        /*
+         * '#myModayTitle' and '#myModalBody' refer to the 'id' of the HTML tags in
+         * the modal HTML code that hold the title and body respectively. These id's
+         * can be named anything, just make sure they are added as necessary.
+         *
+         */
+
+        $('#myModalTitle').html(myTitle);
+        $('#myModalBody').html(myBodyHtml);
+
+        $('#gachaModal').modal('show');
+    }</script> *@
