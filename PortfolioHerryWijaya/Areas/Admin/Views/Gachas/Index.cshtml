@@ -15,12 +15,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GachaItems)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GachaItemPercentages)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.ImageUrl)
             </th>
@@ -36,14 +31,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
+            
             <td>
-                @Html.DisplayFor(modelItem => item.GachaItems)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GachaItemPercentages)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
+                <img src="~/phantom/project3/@item.ImageUrl" width="200px" height="200px"/>
+
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)

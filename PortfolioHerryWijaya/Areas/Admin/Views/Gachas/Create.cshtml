@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    var gachaItems = ViewBag.GachaItems;
 }
 
 <h1>Create</h1>
@@ -9,27 +10,52 @@
 <h4>Gacha</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+    <div class="col-md-12">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+           @*  <div class="form-group">
                 <label asp-for="GachaItems" class="control-label"></label>
                 <input asp-for="GachaItems" class="form-control" />
                 <span asp-validation-for="GachaItems" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            </div> *@
+            @for(int i = 1; i <= 5; i++)
+            {
+                <div class="row">
+                    <div class="col-6">
+                        <label  class="control-label">Item@(i)</label>
+                        <select class="form-control" name="item@(i)">
+                            @foreach(var item in gachaItems)
+                            {
+                                <option>@item.Name</option>
+                            }
+                        </select>
+                        @* <input type="text" class="form-control" name="item@(i)"/> *@
+                    </div>
+                    <div class="col-6">
+                        <label class="control-label">ItemPercentage@(i)</label>
+                        <input type="number" class="form-control" name="itempercentage@(i)" />
+                    </div>
+                </div>
+                
+            }
+         
+
+
+           @*  <div class="form-group">
                 <label asp-for="GachaItemPercentages" class="control-label"></label>
                 <input asp-for="GachaItemPercentages" class="form-control" />
                 <span asp-validation-for="GachaItemPercentages" class="text-danger"></span>
-            </div>
+            </div> *@
             <div class="form-group">
                 <label asp-for="ImageUrl" class="control-label"></label>
-                <input asp-for="ImageUrl" class="form-control" />
+                @* <input asp-for="ImageUrl" class="form-control" /> *@
+                <input type="file" name="ImageFile" asp-for="ImageUrl" class="form-control" />
+
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
             <div class="form-group">

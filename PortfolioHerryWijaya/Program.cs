@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using PortfolioHerryWijaya.Data;
 using PortfolioHerryWijaya.Repositories;
@@ -14,6 +15,15 @@ builder.Services.AddDbContext<PortfolioDbContext>(options =>
 
 
 builder.Services.AddScoped<IPortfolio2Repository, Portfolio2Repository>();
+
+
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+		.AddCookie(options =>
+		{
+			options.LoginPath = "/Home/Login";
+			options.LogoutPath = "/Home/logout";
+		});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,6 +34,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication();
 
 app.UseAuthorization();
 app.MapControllerRoute(

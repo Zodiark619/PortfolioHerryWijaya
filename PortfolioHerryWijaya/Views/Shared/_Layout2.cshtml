@@ -51,10 +51,25 @@
 		<!-- Menu -->
 		<nav id="menu">
 			<h2>Menu</h2>
+			@if (User.Identity.IsAuthenticated)
+			{
+				<p>Logged in as @User.Identity.Name</p>
+
+			}
 			<ul>
 				<li><a asp-action="Index" asp-controller="Home">Home</a></li>
-				<li><a asp-action="Index" asp-controller="AdminPortfolios" asp-area="Admin">Admin</a></li>
-				
+				@if (User.Identity.IsAuthenticated)
+				{
+					<li><a asp-action="Index" asp-controller="AdminPortfolios" asp-area="Admin">Admin</a></li>
+					<li><a asp-action="Logout" asp-controller="Home">Logout</a></li>
+
+				}
+				else
+				{
+					<li><a asp-action="Login" asp-controller="Home">Login</a></li>
+
+				}
+
 			</ul>
 		</nav>
 

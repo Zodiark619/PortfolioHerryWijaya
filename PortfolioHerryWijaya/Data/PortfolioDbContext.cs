@@ -16,8 +16,24 @@ namespace PortfolioHerryWijaya.Data
         //project3
         public DbSet<Gacha> Gachas { get; set; }
         public DbSet<GachaItem> GachaItems { get; set; }
+        public DbSet<User> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>().HasData(
+                new User
+                {
+                    Id= 1,
+                    Email="admin@gmail.com",
+                    FullName="admin",
+                    Password="admin",
+                    IsAdmin=true,
+                    RegisterDate= DateTime.Now,
+                    RecoveryCode=0
+
+                }
+                );
+
+
             modelBuilder.Entity<DaysGoneWeapon>().HasData(
                 new DaysGoneWeapon
                 {
