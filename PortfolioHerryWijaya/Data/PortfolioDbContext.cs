@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PortfolioHerryWijaya.Models.Domain;
 using PortfolioHerryWijaya.Models.Domain.Portfolio3;
+using PortfolioHerryWijaya.Models.Domain.Portfolio4;
 
 namespace PortfolioHerryWijaya.Data
 {
@@ -17,18 +18,21 @@ namespace PortfolioHerryWijaya.Data
         public DbSet<Gacha> Gachas { get; set; }
         public DbSet<GachaItem> GachaItems { get; set; }
         public DbSet<User> Users { get; set; }
+        //project 4
+        public DbSet<Product> Products { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    Id= 1,
-                    Email="admin@gmail.com",
-                    FullName="admin",
-                    Password="admin",
-                    IsAdmin=true,
-                    RegisterDate= DateTime.Now,
-                    RecoveryCode=0
+                    Id = 1,
+                    Email = "admin@gmail.com",
+                    FullName = "admin",
+                    Password = "admin",
+                    IsAdmin = true,
+                    RegisterDate = DateTime.Now,
+                    RecoveryCode = 0
 
                 }
                 );
@@ -173,8 +177,8 @@ namespace PortfolioHerryWijaya.Data
                     {
                         30,30,10,15,15
                     },
-                    ImageUrl="ultimatefreyna.png",
-                    Description="10% chance to get Ultimate Freyna Surprise Box " +
+                    ImageUrl = "ultimatefreyna.png",
+                    Description = "10% chance to get Ultimate Freyna Surprise Box " +
                     "(Contains unique cosmetics, taunts, skins, and animations for Ultimate Freyna)"
                 },
                 new Gacha
@@ -203,6 +207,129 @@ namespace PortfolioHerryWijaya.Data
                 }
                 );
 
+
+
+            //project 4
+            modelBuilder.Entity<Product>().HasData(
+                new Product
+                {
+                    Id=1,
+                    Title="Crystallization Catalyst",
+                    Caliber=100,
+                    Discount=0
+                },
+				new Product
+				{
+					Id = 2,
+					Title = "Ultimate Freyna",
+					Caliber = 1000,
+					Discount = 0
+				},
+				new Product
+				{
+					Id = 3,
+					Title = "Ultimate Gley",
+					Caliber = 1000,
+					Discount = 0
+				},
+				new Product
+				{
+					Id = 4,
+					Title = "Amorpheus Random x100 Box",
+					Caliber = 100,
+					Discount = 0
+				},
+				new Product
+				{
+					Id = 5,
+					Title = "Ultimate Weapon Random Box",
+					Caliber = 500,
+					Discount = 0
+				}
+
+
+				);
+            ////secret garden nano tube blueprint
+            //modelBuilder.Entity<Amorpheus>().HasData(
+            //    new Amorpheus
+            //    {
+            //        Id = 1,
+            //        Name = "083-AB"
+            //    });
+            //modelBuilder.Entity<Item>().HasData(
+            //    new Item
+            //    {
+            //        Id = 1,
+            //        Name = "Enduring Legacy Polymer Syncytium Blueprint",
+
+
+            //    },
+            //    new Item
+            //    {
+            //        Id = 2,
+            //        Name = "Energy Activator Blueprint",
+
+
+            //    }
+            //    );
+            //modelBuilder.Entity<Amorpheus>().HasMany(x => x.Items)
+            //    .WithMany(x => x.Amorpheus)
+            //    .UsingEntity(x => x.HasData(new
+            //    {
+            //        Id
+            //    })
+            //    );
+            //modelBuilder.Entity<Amorpheus>().HasData(
+            //    new Amorpheus
+            //    {
+            //        Id=1,
+            //        Name="083-AB",
+            //        Items=new List<Item>()
+            //        {
+            //          new Item
+            //           {
+            //               Id=1
+            //           },
+            //          new Item
+            //           {
+            //               Id=2
+            //           }
+            //        }
+            //    }
+            //    );
+            //modelBuilder.Entity<Item>().HasData(
+            //    new Item
+            //    {
+            //        Id=1,
+            //        Name="Enduring Legacy Polymer Syncytium Blueprint",
+            //        Amorpheus = new List<Amorpheus>
+            //       {
+            //           new Amorpheus
+            //           {
+            //               Id=1
+            //           }
+            //       }
+
+            //    },
+            //    new Item
+            //    {
+            //        Id = 2,
+            //        Name = "Energy Activator Blueprint",
+            //       Amorpheus=new List<Amorpheus>
+            //       {
+            //           new Amorpheus
+            //           {
+            //               Id=1
+            //           }
+            //       }
+
+            //    }
+            //    );
+
+
+
+
+        }
+
         }
     }
-}

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PortfolioHerryWijaya.Data;
 
@@ -11,9 +12,11 @@ using PortfolioHerryWijaya.Data;
 namespace PortfolioHerryWijaya.Migrations
 {
     [DbContext(typeof(PortfolioDbContext))]
-    partial class PortfolioDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250120071409_project4start")]
+    partial class project4start
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace PortfolioHerryWijaya.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AmorpheusItem", b =>
+                {
+                    b.Property<int>("AmorpheusId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ItemsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AmorpheusId", "ItemsId");
+
+                    b.HasIndex("ItemsId");
+
+                    b.ToTable("AmorpheusItem");
+                });
 
             modelBuilder.Entity("PortfolioHerryWijaya.Models.Domain.DaysGoneWeapon", b =>
                 {
@@ -256,7 +274,7 @@ namespace PortfolioHerryWijaya.Migrations
                         });
                 });
 
-            modelBuilder.Entity("PortfolioHerryWijaya.Models.Domain.Portfolio4.Product", b =>
+            modelBuilder.Entity("PortfolioHerryWijaya.Models.Domain.Portfolio4.Amorpheus", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -264,55 +282,59 @@ namespace PortfolioHerryWijaya.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Caliber")
-                        .HasColumnType("int");
+                    b.Property<string>("ItemId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Discount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.ToTable("Amorpheus");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            Caliber = 100,
-                            Discount = 0,
-                            Title = "Crystallization Catalyst"
+                            ItemId = "[1,2]",
+                            Name = "083-AB"
+                        });
+                });
+
+            modelBuilder.Entity("PortfolioHerryWijaya.Models.Domain.Portfolio4.Item", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AmorpheusId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AmorpheusId = "[1]",
+                            Name = "Enduring Legacy Polymer Syncytium Blueprint"
                         },
                         new
                         {
                             Id = 2,
-                            Caliber = 1000,
-                            Discount = 0,
-                            Title = "Ultimate Freyna"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Caliber = 1000,
-                            Discount = 0,
-                            Title = "Ultimate Gley"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Caliber = 100,
-                            Discount = 0,
-                            Title = "Amorpheus Random x100 Box"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Caliber = 500,
-                            Discount = 0,
-                            Title = "Ultimate Weapon Random Box"
+                            AmorpheusId = "[1]",
+                            Name = "Energy Activator Blueprint"
                         });
                 });
 
@@ -358,8 +380,23 @@ namespace PortfolioHerryWijaya.Migrations
                             IsAdmin = true,
                             Password = "admin",
                             RecoveryCode = 0,
-                            RegisterDate = new DateTime(2025, 1, 22, 21, 37, 24, 693, DateTimeKind.Local).AddTicks(8708)
+                            RegisterDate = new DateTime(2025, 1, 20, 14, 14, 8, 828, DateTimeKind.Local).AddTicks(3904)
                         });
+                });
+
+            modelBuilder.Entity("AmorpheusItem", b =>
+                {
+                    b.HasOne("PortfolioHerryWijaya.Models.Domain.Portfolio4.Amorpheus", null)
+                        .WithMany()
+                        .HasForeignKey("AmorpheusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("PortfolioHerryWijaya.Models.Domain.Portfolio4.Item", null)
+                        .WithMany()
+                        .HasForeignKey("ItemsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,0 +1,259 @@
+﻿@using PortfolioHerryWijaya.Models.Domain.Portfolio4
+
+@model List<Product>
+
+    <style>
+        
+/*mini cart css here*/
+.mini_cart {
+  position: fixed;
+  width: 355px;
+  height: 100%;
+  padding: 20px 20px 33px;
+  background: #fff;
+  z-index: 999;
+  right: 0;
+  top: 0;
+  transition: .5s;
+  transform: translateX(100%);
+  overflow-y: auto;
+  box-shadow: 0 0 15px rgba(5, 0, 0, 0.1);
+}
+.mini_cart.active {
+  transform: translateX(0);
+}
+@@media only screen and (max-width: 575px) {
+  .mini_cart {
+    width: 300px;
+  }
+}
+
+.cart_close {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 10px;
+}
+
+.cart_text h3 {
+  font-size: 18px;
+  text-transform: capitalize;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.mini_cart_close > a {
+  font-size: 25px;
+}
+.mini_cart_close > a:hover {
+  color: #6a7964;
+}
+
+.cart_img {
+  width: 90px;
+  margin-right: 10px;
+  border: 1px solid transparent;
+}
+.cart_img:hover {
+  border-color: #6a7964;
+}
+@@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .cart_img {
+    width: 70px;
+  }
+}
+@@media only screen and (max-width: 767px) {
+  .cart_img {
+    width: 70px;
+  }
+}
+
+.cart_info {
+  width: 63%;
+}
+.cart_info a {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  display: block;
+  margin-bottom: 6px;
+}
+@@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .cart_info a {
+    font-size: 13px;
+  }
+}
+@@media only screen and (max-width: 767px) {
+  .cart_info a {
+    font-size: 13px;
+  }
+}
+.cart_info a:hover {
+  color: #6a7964;
+}
+.cart_info p {
+  font-size: 12px;
+}
+.cart_info p span {
+  font-weight: 600;
+}
+
+.cart_remove a {
+  font-size: 15px;
+  display: block;
+  line-height: 20px;
+  text-align: center;
+}
+.cart_remove a:hover {
+  color: #6a7964;
+}
+
+.cart_item {
+  overflow: hidden;
+  padding: 20px 0;
+  border-bottom: 1px solid #ededed;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mini_cart_table {
+  padding: 23px 0;
+}
+
+.cart_total {
+  display: flex;
+  justify-content: space-between;
+}
+.cart_total span {
+  font-size: 14px;
+  font-weight: 400;
+}
+.cart_total span.price {
+  font-weight: 700;
+}
+@@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .cart_total span {
+    font-size: 13px;
+  }
+}
+@@media only screen and (max-width: 767px) {
+  .cart_total span {
+    font-size: 13px;
+  }
+}
+
+.cart_button:first-child {
+  margin-bottom: 15px;
+}
+.cart_button a {
+  text-transform: uppercase;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #eef0f1;
+  display: block;
+  text-align: center;
+  line-height: 20px;
+  margin-bottom: 0;
+  padding: 13px 0px 11px;
+  border: 1px solid #ededed;
+}
+.cart_button a:hover {
+  background: #6a7964;
+  border-color: #6a7964;
+  color: #fff;
+}
+
+/*mini cart css end*/
+    </style>
+
+<div class="mini_cart">
+    asdqwwqdw
+
+</div>
+<div class="container mt-3">
+    @if (Model != null && Model.Any())
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Product
+                      
+                    </th>
+                    <th>Caliber</th>
+                    <th></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Title</td>
+                        <td>@item.Caliber</td>
+                        <td>
+                            <a onclick="updateCart(@item.Id,1)">Add to cart</a>
+                        </td>
+                        @*
+                <td>
+                <a asp-area="" asp-controller="AdminTags"
+                asp-action="Edit"
+                asp-route-id="@tag.Id">Edit</a>
+                </td> *@
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+      
+    }
+    else
+    {
+        <p>No products found!</p>
+    }
+</div>
+
+
+
+<script>
+    function updateCart(productId, count) {
+        $.ajax({
+            url: '/Portfolio4/UpdateCart',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ productId: productId, count: count }),
+            success: function (result) {
+                $(".item_count").html(result);
+                if (count == 0) {
+                    $("#" + productId).remove();
+                }
+                getMiniCart();
+            },
+            error: function () {
+                alert('Error product not found');
+            }
+        });
+    }
+
+    function getMiniCart() {
+        $.ajax({
+            url: '/Portfolio4/SmallCart',
+            type: 'GET',
+            success: function (result) {
+                $(".mini_cart").html(result);
+            },
+            error: function () {
+                console.error('Error fetching mini cart');
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        getMiniCart();
+    });
+
+</script>
