@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PortfolioHerryWijaya2
+namespace PortfolioHerryWijaya2.Project1_TFD
 {
     public partial class Project1 : Form
     {

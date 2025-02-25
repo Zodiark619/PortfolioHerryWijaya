@@ -1,4 +1,4 @@
-﻿namespace PortfolioHerryWijaya2
+﻿namespace PortfolioHerryWijaya2.Project1_TFD
 {
     partial class Project1
     {
