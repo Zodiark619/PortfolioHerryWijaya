@@ -37,7 +37,7 @@ namespace BeginnerExercise.Controllers
             var value = 0;
            do
            {
-          var       value = random.Next(fortuneCookies.Count());
+                 value = random.Next(fortuneCookies.Count());
 
            } while (counter==value);
 
