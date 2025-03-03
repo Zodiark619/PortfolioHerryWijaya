@@ -8,6 +8,7 @@ namespace BeginnerExercise.Controllers
        //  string  path = Directory.GetCurrentDirectory()+"Exercise001.txt";
          string  path = "Exercise001.txt";
         List<string> fortuneCookies = new List<string>();
+        static int counter = 999;
         public IActionResult Index()
         {
            
@@ -25,17 +26,20 @@ namespace BeginnerExercise.Controllers
                 fortuneCookies.Add(row);
 
             }
+           // var random = new Random();
 
-    //        var counter = fortuneCookies.IndexOf(ViewBag.FortuneCookie);
+           // var value = random.Next(fortuneCookies.Count());
+
+                   var counter = fortuneCookies.IndexOf(ViewBag.FortuneCookie);
 
 
             var random = new Random();
-     //       var value = 0;
-      //      do
-     //       {
+            var value = 0;
+           do
+           {
           var       value = random.Next(fortuneCookies.Count());
 
-     //       } while (counter==value);
+           } while (counter==value);
 
 
           
